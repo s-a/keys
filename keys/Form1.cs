@@ -12,7 +12,10 @@ using System.Windows.Media;
 namespace keys
 {
 
+    using System;
+    using System.Runtime.InteropServices;
 
+ 
     public static class MouseHook
     {
         public static event EventHandler MouseAction = delegate { };
@@ -220,14 +223,16 @@ namespace keys
             this.WindowState = FormWindowState.Minimized;
             this.Hide();
             this.ShowInTaskbar = false;
-
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Visible = false;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(Form1_FormClosed);
             this.Icon = this.GetExecutableIcon();
             NotifyIcon icon = new NotifyIcon();
             icon.Icon = this.Icon;
             //this.Controls.Add(icon);
             icon.Visible = true;
-            icon.Click += new System.EventHandler(onNotifyIconClick); 
+            icon.Click += new System.EventHandler(onNotifyIconClick);
+         
         }
 
         protected void onNotifyIconClick(object sender, EventArgs e)
